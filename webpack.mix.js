@@ -13,5 +13,23 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
-        //
+        require('tailwindcss'),
+        require('autoprefixer'),
     ]);
+
+// Enable versioning in production
+if (mix.inProduction()) {
+    mix.version();
+}
+
+// Configure Mix options
+mix.options({
+    processCssUrls: false,
+    postCss: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ]
+});
+
+// Hot Module Replacement
+mix.disableNotifications();
